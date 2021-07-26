@@ -47,12 +47,21 @@ public class Frame {
 		return score;
 	}
 	
+//	@Override
+//	public String toString() {
+//		String roll3Val = roll3 != null ? String.valueOf(roll3.getScore()) : "";
+//		
+//		return frameNumber.getValue() == 10 ?
+//		"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Roll 3: " +  roll3Val + ", Score: " + score :
+//			"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Score: " + score;
+//	}
+	
 	@Override
 	public String toString() {
-		String roll3Val = roll3 != null ? String.valueOf(roll3.getScore()) : "";
+		Roll roll3Val = roll3 != null ? roll3 : Roll.EMPTY;
 		
 		return frameNumber.getValue() == 10 ?
-		"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Roll 3: " +  roll3Val + ", Score: " + score :
-			"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Score: " + score;
+		"Roll 1: " + roll1 + ", Roll 2: " + roll2 + ", Roll 3: " +  roll3Val + ", Score: " + score :
+			"Roll 1: " + roll1 + ", Roll 2: " + roll2 + ", Score: " + score;
 	}	
 }
