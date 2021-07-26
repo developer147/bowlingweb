@@ -6,8 +6,6 @@ public class Frame {
 	private Roll roll2;
 	private Roll roll3;
 	private int score = 0;
-//	//TODO: unnecessary?
-//	private boolean isScoreFinal = false;
 	
 	public Frame(FrameNumber frameNumber, Roll roll1, Roll roll2) {
 		this.frameNumber = frameNumber;
@@ -49,26 +47,12 @@ public class Frame {
 		return score;
 	}
 	
-//	public void setScoreFinal(boolean isScoreFinal) {
-//		this.isScoreFinal = isScoreFinal;
-//	}
-	
-//	@Override
-//	public String toString() {
-//		return "Frame [frameNumber=" + frameNumber + ", roll1=" + roll1 + ", roll2=" + roll2 + ", score=" + score
-//				+ ", isScoreFinal=" + isScoreFinal + "]";
-//	}	
-	
-//	@Override
-//	public String toString() {
-//		return "Frame [frameNumber=" + frameNumber + ", roll1=" + roll1 + ", roll2=" + roll2 + ", roll3=" + roll3
-//				+ ", score=" + score + "]";
-//	}
-	
 	@Override
 	public String toString() {
+		String roll3Val = roll3 != null ? String.valueOf(roll3.getScore()) : "";
+		
 		return frameNumber.getValue() == 10 ?
-		"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Roll 3: " + roll3.getScore() + ", Score: " + score :
+		"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Roll 3: " +  roll3Val + ", Score: " + score :
 			"Roll 1: " + roll1.getScore() + ", Roll 2: " + roll2.getScore() + ", Score: " + score;
 	}	
 }

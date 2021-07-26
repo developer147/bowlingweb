@@ -1,6 +1,8 @@
 package com.brighthealth.bowlingweb;
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,23 +22,98 @@ public class BowlingController {
 		Player player1 = getPlayerTest1();
 		Player player2 = getPlayerTest2();
 		
-		startPlay(player1);
-		startPlay(player2);
-		//return "Greetings from Spring Boot!";
-		//return "index";
-		model.addAttribute("players", Arrays.asList(player1, player2));
-	    //return "forward:/index.html" ;
+//		startPlay(player1);
+//		startPlay(player2);
+//		//return "Greetings from Spring Boot!";
+//		//return "index";
+//		model.addAttribute("players", Arrays.asList(player1, player2));
+		
+		int totalPlayers = getTotalPlayers();	
+		Player[] players = initializePlayers(totalPlayers);
+		startPlay(players);
+		model.addAttribute("players", players);
+		
 		return "index";
 	}
 	
-	private static void startPlay(Player currentPlayer) {
-		// 1st dimension - number of players, 2nd dimension number of frames which is always 10
-		String[][] output = new String[1][10];
+	private static void startPlay(Player[] players) {
+		int totalPlayers = players.length;
+		int max = 11;
+		int min = 0;
+		Random random = new Random();	
 		
-		for (String[] frames: output) {
-			Arrays.fill(frames, "");
+		// 10 frames
+		for (int currentFrameIndex = 1; currentFrameIndex <= 10; currentFrameIndex++) {
+			FrameNumber currentFrameNumber = FrameNumber.getFrameNumber(currentFrameIndex);
+			FrameNumber previousFrameNumber = currentFrameIndex == 1 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 1);
+			FrameNumber lastToPreviousFrameNumber = currentFrameIndex <= 2 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 2);
+			FrameNumber secondLastToPreviousFrameNumber = currentFrameIndex <= 3 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 3);
+
+			// each player gets to play the current frame
+			for (int currentPlayerIndex = 0; currentPlayerIndex < totalPlayers; currentPlayerIndex++) {
+				Player currentPlayer = players[currentPlayerIndex];
+				
+				Frame previousFrame = previousFrameNumber ==  null ? null : currentPlayer.getFrame(previousFrameNumber);
+				Frame lastToPreviousFrame = lastToPreviousFrameNumber == null ? null : currentPlayer.getFrame(lastToPreviousFrameNumber);
+				Frame secondLastToPreviousFrame = secondLastToPreviousFrameNumber == null ? null : currentPlayer.getFrame(secondLastToPreviousFrameNumber);
+				
+				int rollInt1 = random.nextInt(max - min) + min;
+				int rollInt2 = -1;
+				// If player gets a strike, skip roll2
+				if (rollInt1 != 10) {
+					int newMax = max - rollInt1;
+					rollInt2 = random.nextInt(newMax - min) + min;
+				}
+				
+				Roll roll1 = Roll.getRoll(rollInt1);				
+				
+				whenRollOneIsNotStrike(roll1, 
+						previousFrame, 
+						lastToPreviousFrame, 
+						secondLastToPreviousFrame);
+				
+				whenRollOneIsStrike(roll1, 
+						previousFrame, 
+						lastToPreviousFrame, 
+						secondLastToPreviousFrame);		
+				
+				// 99 is an arbitrary number to mark a spare.
+				Roll roll2 = rollInt1 + rollInt2 == 10 ? Roll.getRoll(99) : Roll.getRoll(rollInt2);
+				
+				Frame currentFrame = new Frame(currentFrameNumber, 
+							roll1, 
+							roll2);				
+				
+				if (currentFrameIndex == 10) {
+					if (roll1 == Roll.STRIKE || roll2 == Roll.SPARE) {
+						int rollInt3 = random.nextInt(max - min) + min;
+						currentFrame.setRoll3(Roll.getRoll(rollInt3));
+					}
+				}
+				
+				whenRollTwoIsNotEmpty(roll1, roll2, 
+						previousFrame, 
+						lastToPreviousFrame, 
+						secondLastToPreviousFrame);
+				
+				whenRollOneIsNotStrikeAndRollTwoIsNotSpare(roll1, roll2,
+						currentFrameIndex,
+						currentFrame,
+						previousFrame,
+						previousFrameNumber,
+						currentPlayer);
+				
+				whenFrameIsTen(roll1, roll2,
+						currentFrameIndex, 
+						currentFrame,
+						previousFrame);
+				
+				currentPlayer.setFrame(currentFrameNumber, currentFrame);
+			}			
 		}
-		
+	}
+	
+	private static void startPlay(Player currentPlayer) {
 		for (int currentFrameIndex = 1; currentFrameIndex <= 10; currentFrameIndex++) {
 			FrameNumber currentFrameNumber = FrameNumber.getFrameNumber(currentFrameIndex);
 			Frame currentFrame = currentPlayer.getFrame(FrameNumber.getFrameNumber(currentFrameIndex));
@@ -83,28 +160,9 @@ public class BowlingController {
 			
 			
 			currentPlayer.setFrame(currentFrameNumber, currentFrame);
-			output[0][currentFrameNumber.getValue()-1] = roll1.getScore() 
-					+ ", " + roll2.getScore() + ", " + currentFrame.getScore();
-			//clearScreenIllusion();
-			//clearConsole();
-			//clearScreen();
-			//clear();
-//			try {
-//				Thread.sleep(5000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			//System.out.println(Arrays.deepToString(output));
-			
-			
-			//System.out.println(currentPlayer);
 		}
 		
-		
 		System.out.println(currentPlayer);
-		//return output;
-		//return player;
 	}
 	
 	private static void whenRollOneIsNotStrike(Roll roll1, Frame previousFrame,
@@ -512,4 +570,32 @@ public class BowlingController {
 		return player;
 	}	
 	
+	private static  int getTotalPlayers() {
+		int totalPlayers = 0;
+		System.out.println("Please enter number of players. It must be between 1 and 6.");
+		while (true) {
+			//Ask on the monitor for # of players
+			Scanner sc = new Scanner(System.in);
+		    System.out.print("Please print your number: ");
+		    totalPlayers = sc.nextInt(); 
+		    
+		    if (totalPlayers < 1 || totalPlayers > 6) {
+		    	//throw new RuntimeException("Invalid number of players. Please enter a value between 1 and 6.");
+		    	System.out.println(totalPlayers + " is invalid number of players. Please enter a value between 1 and 6.");
+		    } else {
+		    	System.out.println("Your entered: " + totalPlayers);
+		    	break;
+		    }
+		}
+		return totalPlayers;
+	}
+	
+	private static Player[] initializePlayers(int totalPlayers) {
+		Player[] players = new Player[totalPlayers];
+		//Initialize players
+		for (int player = 0; player < totalPlayers; player++) {
+			players[player] = new Player(player);
+		}
+		return players;
+	}	
 }

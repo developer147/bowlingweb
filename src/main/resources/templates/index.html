@@ -9,7 +9,7 @@
       <h4>Welcome to Thymeleaf Spring Boot web application</h4>
    </body> -->
    
-<table border=1>
+<table border=1 th:fragment="player_frame">
   <thead>
     <tr>
       <th>Player ID</th>
@@ -27,7 +27,7 @@
   </thead>
   <tbody>
     <tr th:each="player : ${players}">
-      <td th:text="${player.id}">&nbsp;</td>
+      <td th:text="${player.id} + 1">&nbsp;</td>
       <td th:text="${player.frames[0]}">&nbsp;</td>
       <td th:text="${player.frames[1]}">&nbsp;</td>
       <td th:text="${player.frames[2]}">&nbsp;</td>
