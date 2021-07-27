@@ -1,12 +1,12 @@
 package com.brighthealth.bowlingweb;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.brighthealth.bowlingweb.models.Frame;
 import com.brighthealth.bowlingweb.models.FrameNumber;
@@ -15,6 +15,12 @@ import com.brighthealth.bowlingweb.models.Roll;
 
 @Controller
 public class BowlingController {
+	@GetMapping(value="/")
+	public String greeting() {
+		return "greeting";
+	}
+	
+	
 	//@GetMapping("/")
 	//@RequestMapping(value = "/index")
 	@GetMapping(value="/index")
@@ -30,12 +36,14 @@ public class BowlingController {
 		
 		int totalPlayers = getTotalPlayers();	
 		Player[] players = initializePlayers(totalPlayers);
-		startPlay(players);
 		model.addAttribute("players", players);
+		startPlay(players);
+		//return new ModelAndView("redirect:/play");
 		
-		return "index";
+		return "index :: player_frame";
 	}
 	
+	@GetMapping(value="/play")
 	private static void startPlay(Player[] players) {
 		int totalPlayers = players.length;
 		int max = 11;
@@ -109,6 +117,7 @@ public class BowlingController {
 						previousFrame);
 				
 				currentPlayer.setFrame(currentFrameNumber, currentFrame);
+				//return "redirect:/showData";
 			}			
 		}
 	}
