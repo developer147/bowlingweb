@@ -15,14 +15,6 @@ import com.brighthealth.bowlingweb.models.Roll;
 
 @Controller
 public class BowlingController {
-	@GetMapping(value="/")
-	public String greeting() {
-		return "greeting";
-	}
-	
-	
-	//@GetMapping("/")
-	//@RequestMapping(value = "/index")
 	@GetMapping(value="/index")
 	public String index(Model model) {
 		Player player1 = getPlayerTest1();

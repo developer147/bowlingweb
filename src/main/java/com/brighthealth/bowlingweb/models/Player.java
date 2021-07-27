@@ -6,6 +6,10 @@ public class Player {
 	private int id;
 	private Frame[] frames;
 	
+	public Player() {
+		
+	}
+	
 	public Player(int playerId) {
 		this.id = playerId;
 		frames = new Frame[10];

@@ -7,6 +7,9 @@ public class Frame {
 	private Roll roll3;
 	private int score = 0;
 	
+	public Frame() {
+	}
+	
 	public Frame(FrameNumber frameNumber, Roll roll1, Roll roll2) {
 		this.frameNumber = frameNumber;
 		this.roll1 = roll1;
@@ -17,12 +20,24 @@ public class Frame {
 		return roll1;
 	}
 	
+	public void setRoll1(Roll roll1) {
+		this.roll1  = roll1;
+	}
+	
 	public Roll getRoll2() {
 		return roll2;
 	}
 	
+	public void setRoll2(Roll roll2) {
+		this.roll2  = roll2;
+	}	
+	
 	public FrameNumber getFrameNumber() {
 		return frameNumber;
+	}
+	
+	public void setFrameNumber(FrameNumber frameNumber) {
+		this.frameNumber  = frameNumber;
 	}
 	
 	public void setScore(int score) {

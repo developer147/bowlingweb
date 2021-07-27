@@ -8,7 +8,9 @@
    <body>
       <h4>Welcome to Thymeleaf Spring Boot web application</h4>
    </body> -->
-   
+<html>
+<body>
+<!-- <table border=1 th:fragment="player_frame"> -->
 <table border=1 th:fragment="player_frame">
   <thead>
     <tr>
@@ -40,5 +42,20 @@
       <td th:text="${player.frames[9]}">&nbsp;</td>
     </tr>
   </tbody>
-</table>   
+</table>  
+<!--  <!-- <form action="#" th:action="@{/nextPlay}" th:object="${bowlingLaneImpl}" method="post"> -->
+ <!-- <form action="#" th:action="@{/nextPlay}" th:object="${lane}" method="post">
+ 	 <input type="hidden" th:field="*{totalPlayers}" />
+ 	 <input type="hidden" th:field="*{max}" />
+ 	 <input type="hidden" th:field="*{min}" />
+ 	 <input type="hidden" th:field="*{currentFrameIndex}" />
+ 	 <input type="hidden" th:field="*{currentPlayerIndex}" />
+ 	 <input type="hidden" th:field="*{players}" />
+     <button type="submit">Submit</button>
+ </form> --> -->
+ <!-- <a th:href="${/nextPlay?lane=lane}">Next Play</a> -->
+  <a th:href="@{/nextPlay/{lane}(lane=${lane})}">Next Play</a> 
+</body>
+</html>
+
 <!-- </html> -->
