@@ -50,8 +50,8 @@ public class Frame {
 	}
 	
 	public Roll getRoll3() {
-		assert frameNumber == FrameNumber.TEN;
-		assert roll2 == Roll.STRIKE || roll2 == Roll.SPARE;
+		//assert frameNumber == FrameNumber.TEN;
+		//assert roll2 == Roll.STRIKE || roll2 == Roll.SPARE;
 		return roll3;
 	}	
 	

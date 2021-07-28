@@ -1,5 +1,6 @@
 package com.brighthealth.bowlingweb.controllers;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,19 +17,19 @@ import com.brighthealth.bowlingweb.models.Roll;
 public class BowlingControllerOld {
 	@GetMapping(value="/index")
 	public String index(Model model) {
-		Player player1 = getPlayerTest1();
-		Player player2 = getPlayerTest2();
+		Player player1 = getPlayerTest2();
+		Player player2 = getPlayerTest4();
 		
-//		startPlay(player1);
-//		startPlay(player2);
+		startPlay(player1);
+		startPlay(player2);
 //		//return "Greetings from Spring Boot!";
 //		//return "index";
-//		model.addAttribute("players", Arrays.asList(player1, player2));
+		model.addAttribute("players", Arrays.asList(player1, player2));
 		
-		int totalPlayers = getTotalPlayers();	
-		Player[] players = initializePlayers(totalPlayers);
-		model.addAttribute("players", players);
-		startPlay(players);
+//		int totalPlayers = getTotalPlayers();	
+//		Player[] players = initializePlayers(totalPlayers);
+//		model.addAttribute("players", players);
+//		startPlay(players);
 		//return new ModelAndView("redirect:/play");
 		
 		return "index :: player_frame";
@@ -289,77 +290,6 @@ public class BowlingControllerOld {
 	}
 	
 	
-	
-	private static Player getPlayerTest1() {
-		Player player = new  Player(0);
-		
-		FrameNumber frameNumber = FrameNumber.getFrameNumber(1);
-		Frame frame1  = new Frame(frameNumber,
-				Roll.getRoll(8),
-				Roll.getRoll(0));
-		player.setFrame(frameNumber, frame1);
-		
-		frameNumber = FrameNumber.getFrameNumber(2);
-		Frame frame2  = new Frame(frameNumber,
-				Roll.getRoll(5),
-				Roll.getRoll(99));
-		player.setFrame(frameNumber, frame2);
-		
-		frameNumber = FrameNumber.getFrameNumber(3);
-		Frame frame3  = new Frame(frameNumber,
-				Roll.getRoll(3),
-				Roll.getRoll(5));
-		player.setFrame(frameNumber, frame3);	
-		
-		frameNumber = FrameNumber.getFrameNumber(4);
-		Frame frame4  = new Frame(frameNumber,
-				Roll.getRoll(8),
-				Roll.getRoll(1));
-		player.setFrame(frameNumber, frame4);		
-		
-		frameNumber = FrameNumber.getFrameNumber(5);
-		Frame frame5  = new Frame(frameNumber,
-				Roll.getRoll(7),
-				Roll.getRoll(1));
-		player.setFrame(frameNumber, frame5);	
-		
-		frameNumber = FrameNumber.getFrameNumber(6);
-		Frame frame6  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame6);	
-		
-		frameNumber = FrameNumber.getFrameNumber(7);
-		Frame frame7  = new Frame(frameNumber,
-				Roll.getRoll(9),
-				Roll.getRoll(99));
-		player.setFrame(frameNumber, frame7);	
-		
-		frameNumber = FrameNumber.getFrameNumber(8);
-		Frame frame8  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame8);
-		
-		frameNumber = FrameNumber.getFrameNumber(9);
-		Frame frame9  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame9);
-		
-		frameNumber = FrameNumber.getFrameNumber(10);
-		Frame frame10  = new Frame(frameNumber,
-				Roll.getRoll(8),
-				Roll.getRoll(99));
-		frame10.setRoll3(Roll.getRoll(6));
-		player.setFrame(frameNumber, frame10);		
-		
-		
-		//System.out.println(player);
-
-		return player;
-	}
-	
 	private static Player getPlayerTest2() {
 		Player player = new  Player(1);
 		
@@ -430,75 +360,6 @@ public class BowlingControllerOld {
 		return player;
 	}	
 	
-	private static Player getPlayerTest3() {
-		Player player = new  Player(0);
-		
-		FrameNumber frameNumber = FrameNumber.getFrameNumber(1);
-		Frame frame1  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame1);
-		
-		frameNumber = FrameNumber.getFrameNumber(2);
-		Frame frame2  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame2);
-		
-		frameNumber = FrameNumber.getFrameNumber(3);
-		Frame frame3  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame3);	
-		
-		frameNumber = FrameNumber.getFrameNumber(4);
-		Frame frame4  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame4);		
-		
-		frameNumber = FrameNumber.getFrameNumber(5);
-		Frame frame5  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame5);	
-		
-		frameNumber = FrameNumber.getFrameNumber(6);
-		Frame frame6  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame6);	
-		
-		frameNumber = FrameNumber.getFrameNumber(7);
-		Frame frame7  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame7);	
-		
-		frameNumber = FrameNumber.getFrameNumber(8);
-		Frame frame8  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame8);
-		
-		frameNumber = FrameNumber.getFrameNumber(9);
-		Frame frame9  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(-1));
-		player.setFrame(frameNumber, frame9);
-		
-		frameNumber = FrameNumber.getFrameNumber(10);
-		Frame frame10  = new Frame(frameNumber,
-				Roll.getRoll(10),
-				Roll.getRoll(10));
-		frame10.setRoll3(Roll.getRoll(10));
-		player.setFrame(frameNumber, frame10);		
-		
-		
-		//System.out.println(player);
-
-		return player;
-	}
 	
 	private static Player getPlayerTest4() {
 		Player player = new  Player(0);
