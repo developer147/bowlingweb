@@ -7,28 +7,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.brighthealth.bowlingweb.models.Greeting;
+import com.brighthealth.bowlingweb.models.PlayerCount;
 import com.brighthealth.bowlingweb.models.Player;
 import com.brighthealth.bowlingweb.services.BowlingAlleyService;
 import com.brighthealth.bowlingweb.services.BowlingLaneImpl;
 
 @Controller
-public class GreetingController {
+public class PlayerCountController {
 	  @Autowired
 	  BowlingAlleyService bowlingAlleyService;	  
 	
-	  @GetMapping("/greeting")
-	  public String greetingForm(Model model) {
-	    model.addAttribute("greeting", new Greeting());
-	    return "greeting";
+	  @GetMapping("/")
+	  public String playerCountForm(Model model) {
+	    model.addAttribute("PlayerCount", new PlayerCount());
+	    return "PlayerCount";
 	  }
 
-	  @PostMapping("/greeting")
-	  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
+	  @PostMapping("/")
+	  public String playerCountSubmit(@ModelAttribute PlayerCount greeting, Model model) {
 		int laneNumber = bowlingAlleyService.getLane();
 		BowlingLaneImpl bowlingLaneImpl = new BowlingLaneImpl(greeting.getCount(), laneNumber);
 		bowlingAlleyService.setCurrentLane(laneNumber, bowlingLaneImpl);
-		
 		
 		Player[] players =  bowlingLaneImpl.getPlayers();
 	    

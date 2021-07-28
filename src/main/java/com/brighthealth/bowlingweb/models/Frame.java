@@ -7,9 +7,6 @@ public class Frame {
 	private Roll roll3;
 	private int score = 0;
 	
-	public Frame() {
-	}
-	
 	public Frame(FrameNumber frameNumber, Roll roll1, Roll roll2) {
 		this.frameNumber = frameNumber;
 		this.roll1 = roll1;

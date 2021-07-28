@@ -2,7 +2,6 @@ package com.brighthealth.bowlingweb.services;
 
 import java.util.Random;
 
-import com.brighthealth.bowlingweb.models.BowlingLane;
 import com.brighthealth.bowlingweb.models.Frame;
 import com.brighthealth.bowlingweb.models.FrameNumber;
 import com.brighthealth.bowlingweb.models.Player;

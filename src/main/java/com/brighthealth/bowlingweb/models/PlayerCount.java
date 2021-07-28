@@ -1,6 +1,6 @@
 package com.brighthealth.bowlingweb.models;
 
-public class Greeting {
+public class PlayerCount {
 	  private int count;
 
 	  public int getCount() {

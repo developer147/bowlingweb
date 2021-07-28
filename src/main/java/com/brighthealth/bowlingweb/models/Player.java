@@ -6,17 +6,9 @@ public class Player {
 	private int id;
 	private Frame[] frames;
 	
-	public Player() {
-		
-	}
-	
 	public Player(int playerId) {
 		this.id = playerId;
 		frames = new Frame[10];
-	}
-	
-	public void setId(int playerId) {
-		this.id = playerId;
 	}
 	
 	public int getId() {
@@ -25,10 +17,6 @@ public class Player {
 	
 	public Frame[] getFrames() {
 		return frames;
-	}
-	
-	public void setFrames(Frame[] frames) {
-		this.frames = frames;
 	}
 	
 	public void setFrame(FrameNumber frameNumber, Frame frame) {

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BowlingwebApplication {
+public class BowlingApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(BowlingwebApplication.class, args);
+		SpringApplication.run(BowlingApplication.class, args);
 	}
 
 }
