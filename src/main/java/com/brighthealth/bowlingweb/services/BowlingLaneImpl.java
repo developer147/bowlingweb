@@ -13,57 +13,22 @@ public class BowlingLaneImpl implements BowlingLane {
 	private int currentPlayerIndex = 0;
 	private long lane;
 	
-	public long getLane() {
-		return lane;
-	}
-	
-	public void setLane(int lane) {
-		this.lane = lane;
-	}
-	
-	public int getTotalPlayers() {
-		return  totalPlayers;
-	}
-	
-	public void setTotalPlayers(int totalPlayers) {
-		this.totalPlayers = totalPlayers;
-	}
-	
-	public int getCurrentFrameIndex() {
-		return currentFrameIndex;
-	}
-	
-	public void setCurrentFrameIndex(int currentFrameIndex) {
-		this.currentFrameIndex  = currentFrameIndex;
-	}
-	
-	public int getCurrentPlayerIndex() {
-		return currentPlayerIndex;
-	}
-	
-	public void setCurrentPlayerIndex(int currentPlayerIndex) {
-		this.currentPlayerIndex = currentPlayerIndex;
-	}
-	
-	public BowlingLaneImpl() {
-		
-	}
-	
-	public void setPlayers(Player[] players) {
-		this.players = players;
-	}
-	
 	public BowlingLaneImpl(int totalPlayers, long lane) {
 		this.totalPlayers = totalPlayers; 
 		this.lane = lane;
 		this.players = initializePlayers(this.totalPlayers);
 	}
+	
+	public BowlingLaneImpl(int totalPlayers, long lane, Player[] players) {
+		this.totalPlayers = totalPlayers; 
+		this.lane = lane;
+		this.players = players;
+	}	
 
 	@Override
 	public void start(Player[] players) {
 		RollPair rollPair = BowlingAlleyService.getRandomRolls();
-		int rollInt3 = BowlingAlleyService.getRoll3();
-		nextPlay(rollPair.getRoll1(), rollPair.getRoll2(), rollInt3);
+		nextPlay(rollPair.getRoll1(), rollPair.getRoll2(), -1);
 	}
 	
 	public boolean nextPlay(int rollInt1, int rollInt2, int rollInt3) {
@@ -274,6 +239,10 @@ public class BowlingLaneImpl implements BowlingLane {
 	public Player[] getPlayers() {
 		return this.players;
 	}
+	
+	public long getLane() {
+		return lane;
+	}	
 	
 	private Player[] initializePlayers(int totalPlayers) {
 		Player[] players = new Player[totalPlayers];
