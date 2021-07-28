@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.brighthealth.bowlingweb.models.PlayerCount;
 import com.brighthealth.bowlingweb.models.Player;
+import com.brighthealth.bowlingweb.models.PlayerCount;
+import com.brighthealth.bowlingweb.models.RollPair;
 import com.brighthealth.bowlingweb.services.BowlingAlleyService;
 import com.brighthealth.bowlingweb.services.BowlingLaneImpl;
 
 @Controller
-public class BowlerCountController {
+public class BowlingController {
 	  @Autowired
 	  BowlingAlleyService bowlingAlleyService;	  
 	
@@ -43,8 +44,11 @@ public class BowlerCountController {
 		  
 		  model.addAttribute("players", bowlingLaneImpl.getPlayers());
 		  model.addAttribute("lane", bowlingLaneImpl.getLane());
+		  
+		  RollPair rollPair = BowlingAlleyService.getRandomRolls();
 	  
-		  boolean isGameOver = bowlingLaneImpl.nextPlay();
+		  boolean isGameOver = bowlingLaneImpl.nextPlay(rollPair.getRoll1(),  rollPair.getRoll2(), 
+				  BowlingAlleyService.getRoll3());
 		  model.addAttribute("isGameOver", isGameOver);
 		  
 		  if (isGameOver) {

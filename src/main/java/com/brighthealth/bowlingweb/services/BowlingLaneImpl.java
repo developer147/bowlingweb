@@ -1,21 +1,17 @@
 package com.brighthealth.bowlingweb.services;
 
-import java.util.Random;
-
 import com.brighthealth.bowlingweb.models.Frame;
 import com.brighthealth.bowlingweb.models.FrameNumber;
 import com.brighthealth.bowlingweb.models.Player;
 import com.brighthealth.bowlingweb.models.Roll;
+import com.brighthealth.bowlingweb.models.RollPair;
 
 public class BowlingLaneImpl implements BowlingLane {
 	private int totalPlayers = -1;
 	private Player[] players = null;
 	private int currentFrameIndex = 1;
 	private int currentPlayerIndex = 0;
-	int max = 11;
-	int min = 0;
 	private long lane;
-	Random random = new Random();
 	
 	public long getLane() {
 		return lane;
@@ -31,22 +27,6 @@ public class BowlingLaneImpl implements BowlingLane {
 	
 	public void setTotalPlayers(int totalPlayers) {
 		this.totalPlayers = totalPlayers;
-	}
-	
-	public int getMax() {
-		return max;
-	}
-	
-	public void setMax(int max) {
-		this.max  = max;
-	}
-	
-	public int getMin() {
-		return min;
-	}
-	
-	public void setMin(int min) {
-		this.min = min;
 	}
 	
 	public int getCurrentFrameIndex() {
@@ -81,10 +61,12 @@ public class BowlingLaneImpl implements BowlingLane {
 
 	@Override
 	public void start(Player[] players) {
-		nextPlay();
+		RollPair rollPair = BowlingAlleyService.getRandomRolls();
+		int rollInt3 = BowlingAlleyService.getRoll3();
+		nextPlay(rollPair.getRoll1(), rollPair.getRoll2(), rollInt3);
 	}
 	
-	public boolean nextPlay() {
+	public boolean nextPlay(int rollInt1, int rollInt2, int rollInt3) {
 		FrameNumber currentFrameNumber = FrameNumber.getFrameNumber(currentFrameIndex);
 		FrameNumber previousFrameNumber = currentFrameIndex == 1 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 1);
 		FrameNumber lastToPreviousFrameNumber = currentFrameIndex <= 2 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 2);
@@ -95,14 +77,6 @@ public class BowlingLaneImpl implements BowlingLane {
 		Frame previousFrame = previousFrameNumber ==  null ? null : currentPlayer.getFrame(previousFrameNumber);
 		Frame lastToPreviousFrame = lastToPreviousFrameNumber == null ? null : currentPlayer.getFrame(lastToPreviousFrameNumber);
 		Frame secondLastToPreviousFrame = secondLastToPreviousFrameNumber == null ? null : currentPlayer.getFrame(secondLastToPreviousFrameNumber);
-		
-		int rollInt1 = random.nextInt(max - min) + min;
-		int rollInt2 = -1;
-		// If player gets a strike, skip roll2
-		if (rollInt1 != 10) {
-			int newMax = max - rollInt1;
-			rollInt2 = random.nextInt(newMax - min) + min;
-		}
 		
 		Roll roll1 = Roll.getRoll(rollInt1);				
 		
@@ -125,7 +99,6 @@ public class BowlingLaneImpl implements BowlingLane {
 		
 		if (currentFrameIndex == 10) {
 			if (roll1 == Roll.STRIKE || roll2 == Roll.SPARE) {
-				int rollInt3 = random.nextInt(max - min) + min;
 				currentFrame.setRoll3(Roll.getRoll(rollInt3));
 			}
 		}
