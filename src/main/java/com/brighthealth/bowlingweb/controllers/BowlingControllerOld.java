@@ -13,7 +13,7 @@ import com.brighthealth.bowlingweb.models.Player;
 import com.brighthealth.bowlingweb.models.Roll;
 
 @Controller
-public class BowlingController {
+public class BowlingControllerOld {
 	@GetMapping(value="/index")
 	public String index(Model model) {
 		Player player1 = getPlayerTest1();

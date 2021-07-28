@@ -13,7 +13,7 @@ import com.brighthealth.bowlingweb.services.BowlingAlleyService;
 import com.brighthealth.bowlingweb.services.BowlingLaneImpl;
 
 @Controller
-public class PlayerCountController {
+public class BowlerCountController {
 	  @Autowired
 	  BowlingAlleyService bowlingAlleyService;	  
 	
@@ -25,7 +25,7 @@ public class PlayerCountController {
 
 	  @PostMapping("/")
 	  public String playerCountSubmit(@ModelAttribute PlayerCount greeting, Model model) {
-		int laneNumber = bowlingAlleyService.getLane();
+		long laneNumber = bowlingAlleyService.getLane();
 		BowlingLaneImpl bowlingLaneImpl = new BowlingLaneImpl(greeting.getCount(), laneNumber);
 		bowlingAlleyService.setCurrentLane(laneNumber, bowlingLaneImpl);
 		
@@ -44,7 +44,13 @@ public class PlayerCountController {
 		  model.addAttribute("players", bowlingLaneImpl.getPlayers());
 		  model.addAttribute("lane", bowlingLaneImpl.getLane());
 	  
-		  bowlingLaneImpl.nextPlay();
+		  boolean isGameOver = bowlingLaneImpl.nextPlay();
+		  model.addAttribute("isGameOver", isGameOver);
+		  
+		  if (isGameOver) {
+			  bowlingAlleyService.cleanup(lane);
+		  }
+		  
 		  return "index";
 	  }	  
 }

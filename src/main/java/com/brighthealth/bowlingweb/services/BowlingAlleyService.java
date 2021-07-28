@@ -4,25 +4,28 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 public class BowlingAlleyService {
-	private static int laneNumber = 0;
-	Map<Integer, BowlingLaneImpl> currentLanes = new HashMap<>();
+	private static long laneNumber = 0;
+	Map<Long, BowlingLaneImpl> currentLanes = new HashMap<>();
 	
-	public synchronized int getLane() {
+	public synchronized long getLane() {
 		return ++laneNumber;
 	}
 	
-	public synchronized int freeLane() {
+	public synchronized long freeLane() {
 		return --laneNumber;
 	}
 	
-	public void setCurrentLane(int lane, BowlingLaneImpl bowlingLaneImpl) {
+	public void setCurrentLane(long lane, BowlingLaneImpl bowlingLaneImpl) {
 		currentLanes.put(lane, bowlingLaneImpl);
 	}
 	
-	public BowlingLaneImpl getBowlingLaneImplByLane(int lane) {
+	public BowlingLaneImpl getBowlingLaneImplByLane(long lane) {
 		return currentLanes.get(lane);
 	}
+	
+	public boolean cleanup(long lane) {
+		return currentLanes.remove(lane) !=  null;
+	}	
 }

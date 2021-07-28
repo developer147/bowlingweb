@@ -1,15 +1,10 @@
-<!-- <!DOCTYPE html>
-<html> -->
-<!--    <head>
-      <meta charset = "ISO-8859-1" />
-      <link href = "css/styles.css" rel = "stylesheet"/>
-      <title>Spring Boot Application</title>
-   </head>
-   <body>
-      <h4>Welcome to Thymeleaf Spring Boot web application</h4>
-   </body> -->
 <html>
 <body>
+
+<div th:if="${isGameOver != true}">
+   <a th:href="@{/nextPlay/{lane}(lane=${lane})}">Next Turn	</a>
+</div>  
+<a th:href="@{/}">Home Page</a>
 <!-- <table border=1 th:fragment="player_frame"> -->
 <table border=1 th:fragment="player_frame">
   <thead>
@@ -43,18 +38,7 @@
     </tr>
   </tbody>
 </table>  
-<!--  <!-- <form action="#" th:action="@{/nextPlay}" th:object="${bowlingLaneImpl}" method="post"> -->
- <!-- <form action="#" th:action="@{/nextPlay}" th:object="${lane}" method="post">
- 	 <input type="hidden" th:field="*{totalPlayers}" />
- 	 <input type="hidden" th:field="*{max}" />
- 	 <input type="hidden" th:field="*{min}" />
- 	 <input type="hidden" th:field="*{currentFrameIndex}" />
- 	 <input type="hidden" th:field="*{currentPlayerIndex}" />
- 	 <input type="hidden" th:field="*{players}" />
-     <button type="submit">Submit</button>
- </form> --> -->
- <!-- <a th:href="${/nextPlay?lane=lane}">Next Play</a> -->
-  <a th:href="@{/nextPlay/{lane}(lane=${lane})}">Next Play</a> 
+  
 </body>
 </html>
 

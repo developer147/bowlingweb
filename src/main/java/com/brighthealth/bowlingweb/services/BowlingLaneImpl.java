@@ -14,10 +14,10 @@ public class BowlingLaneImpl implements BowlingLane {
 	private int currentPlayerIndex = 0;
 	int max = 11;
 	int min = 0;
-	private int lane;
+	private long lane;
 	Random random = new Random();
 	
-	public int getLane() {
+	public long getLane() {
 		return lane;
 	}
 	
@@ -73,7 +73,7 @@ public class BowlingLaneImpl implements BowlingLane {
 		this.players = players;
 	}
 	
-	public BowlingLaneImpl(int totalPlayers, int lane) {
+	public BowlingLaneImpl(int totalPlayers, long lane) {
 		this.totalPlayers = totalPlayers; 
 		this.lane = lane;
 		this.players = initializePlayers(this.totalPlayers);
@@ -84,10 +84,7 @@ public class BowlingLaneImpl implements BowlingLane {
 		nextPlay();
 	}
 	
-	public void nextPlay() {
-		if (currentFrameIndex > 10) {
-			throw new RuntimeException("The game was over.");
-		}
+	public boolean nextPlay() {
 		FrameNumber currentFrameNumber = FrameNumber.getFrameNumber(currentFrameIndex);
 		FrameNumber previousFrameNumber = currentFrameIndex == 1 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 1);
 		FrameNumber lastToPreviousFrameNumber = currentFrameIndex <= 2 ? null : FrameNumber.getFrameNumber(currentFrameIndex - 2);
@@ -160,9 +157,9 @@ public class BowlingLaneImpl implements BowlingLane {
 		}
 		
 		if (currentFrameIndex == 11) {
-			return;
+			return true;
 		}
-				
+		return false;		
 	}
 	
 	private void whenRollOneIsNotStrike(Roll roll1, Frame previousFrame,
