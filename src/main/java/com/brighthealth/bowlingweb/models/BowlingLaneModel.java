@@ -6,9 +6,6 @@ public class BowlingLaneModel {
 	public int getTotalPlayers() {
 		return totalPlayers;
 	}
-	public void setTotalPlayers(int totalPlayers) {
-		this.totalPlayers = totalPlayers;
-	}
 	public Player[] getPlayers() {
 		return players;
 	}

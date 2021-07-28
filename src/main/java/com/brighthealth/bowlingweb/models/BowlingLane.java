@@ -1,13 +1,11 @@
 package com.brighthealth.bowlingweb.models;
 
 public interface BowlingLane {
-	void startGame(Player[] players);
+	void start(Player[] players);
 	
-	void stopGame();
+	void stop();
 	
-	void pauseGame();
+	void pause();
 	
-	void resetGame();
-	
-	Player[] getPlayers();
+	void reset();
 }

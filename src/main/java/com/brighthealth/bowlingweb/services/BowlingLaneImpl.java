@@ -1,6 +1,12 @@
-package com.brighthealth.bowlingweb.models;
+package com.brighthealth.bowlingweb.services;
 
 import java.util.Random;
+
+import com.brighthealth.bowlingweb.models.BowlingLane;
+import com.brighthealth.bowlingweb.models.Frame;
+import com.brighthealth.bowlingweb.models.FrameNumber;
+import com.brighthealth.bowlingweb.models.Player;
+import com.brighthealth.bowlingweb.models.Roll;
 
 public class BowlingLaneImpl implements BowlingLane {
 	private int totalPlayers = -1;
@@ -75,7 +81,7 @@ public class BowlingLaneImpl implements BowlingLane {
 	}
 
 	@Override
-	public void startGame(Player[] players) {
+	public void start(Player[] players) {
 		nextPlay();
 	}
 	
@@ -285,24 +291,17 @@ public class BowlingLaneImpl implements BowlingLane {
 	
 
 	@Override
-	public void stopGame() {
+	public void stop() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void pauseGame() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resetGame() {
+	public void reset() {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
 	public Player[] getPlayers() {
 		return this.players;
 	}
@@ -314,5 +313,11 @@ public class BowlingLaneImpl implements BowlingLane {
 			players[player] = new Player(player);
 		}
 		return players;
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
 	}	
 }

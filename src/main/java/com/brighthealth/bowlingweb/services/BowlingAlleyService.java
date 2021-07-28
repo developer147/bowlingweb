@@ -1,13 +1,9 @@
-package com.brighthealth.bowlingweb;
-
+package com.brighthealth.bowlingweb.services;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
-import com.brighthealth.bowlingweb.models.BowlingLaneImpl;
 
 @Configuration
 public class BowlingAlleyService {
@@ -22,13 +18,6 @@ public class BowlingAlleyService {
 		return --laneNumber;
 	}
 	
-	
-//	@Bean
-//	@Scope("singleton")
-//	public Map<Integer, BowlingLaneImpl> getCurrentLanes() {
-//	    return currentLanes;
-//	}
-	
 	public void setCurrentLane(int lane, BowlingLaneImpl bowlingLaneImpl) {
 		currentLanes.put(lane, bowlingLaneImpl);
 	}
@@ -36,9 +25,4 @@ public class BowlingAlleyService {
 	public BowlingLaneImpl getBowlingLaneImplByLane(int lane) {
 		return currentLanes.get(lane);
 	}
-
-	
-	
-	
-	
 }
