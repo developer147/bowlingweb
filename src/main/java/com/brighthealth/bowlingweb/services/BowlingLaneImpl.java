@@ -4,7 +4,7 @@ import com.brighthealth.bowlingweb.models.Frame;
 import com.brighthealth.bowlingweb.models.FrameNumber;
 import com.brighthealth.bowlingweb.models.Player;
 import com.brighthealth.bowlingweb.models.Roll;
-import com.brighthealth.bowlingweb.models.RollPair;
+import com.brighthealth.bowlingweb.models.RollTrio;
 
 public class BowlingLaneImpl implements BowlingLane {
 	private int totalPlayers = -1;
@@ -27,8 +27,8 @@ public class BowlingLaneImpl implements BowlingLane {
 
 	@Override
 	public void start(Player[] players) {
-		RollPair rollPair = BowlingAlleyService.getRandomRolls();
-		nextPlay(rollPair.getRoll1(), rollPair.getRoll2(), -1);
+		RollTrio rollTrio = RollTrio.getRandomRolls(false);
+		nextPlay(rollTrio.getRoll1(), rollTrio.getRoll2(), rollTrio.getRoll3());
 	}
 	
 	public boolean nextPlay(int rollInt1, int rollInt2, int rollInt3) {
@@ -56,7 +56,14 @@ public class BowlingLaneImpl implements BowlingLane {
 				secondLastToPreviousFrame);		
 		
 		// 99 is an arbitrary number to mark a spare.
-		Roll roll2 = rollInt1 + rollInt2 == 10 ? Roll.getRoll(99) : Roll.getRoll(rollInt2);
+		Roll roll2 = null;
+		if (currentFrameIndex != 10) {
+			roll2 = rollInt1 + rollInt2 == 10 ? Roll.getRoll(99) : Roll.getRoll(rollInt2);
+		} else {
+			roll2  = Roll.getRoll(rollInt2);
+		}
+		
+		//Roll roll2 = Roll.getRoll2(currentFrameIndex, rollInt1, rollInt2);
 		
 		Frame currentFrame = new Frame(currentFrameNumber, 
 					roll1, 
@@ -80,10 +87,13 @@ public class BowlingLaneImpl implements BowlingLane {
 				previousFrameNumber,
 				currentPlayer);
 		
-		whenFrameIsTen(roll1, roll2,
-				currentFrameIndex, 
-				currentFrame,
-				previousFrame);
+		// 10th is special because of the third potential roll so need extra care.
+		if (currentFrameIndex == 10) {
+			whenFrameIsTen(roll1, roll2,
+					currentFrameIndex, 
+					currentFrame,
+					previousFrame);
+		}
 		
 		currentPlayer.setFrame(currentFrameNumber, currentFrame);
 		
@@ -99,6 +109,79 @@ public class BowlingLaneImpl implements BowlingLane {
 		}
 		return false;		
 	}
+	
+	public  boolean isLastFrame() {
+		return currentFrameIndex == 10 && currentPlayerIndex == totalPlayers - 1; 
+	}
+	
+	private void whenFrameIsTen(Roll roll1, Roll roll2,
+			int currentFrameIndex, 
+			Frame currentFrame,
+			Frame previousFrame) {
+
+			Roll roll3 = currentFrame.getRoll3();
+			int roll3Score = 0;
+			if (roll3 != null) {
+				roll3Score = roll3.getScore() == 99 ? 10 : roll3.getScore();
+			}
+			
+			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE) {
+				currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
+			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE) {
+				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + 10 + roll3Score);
+			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE) {
+				currentFrame.setScore(previousFrame.getScore() + 10 + roll3Score);
+			} else {
+				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore() + roll3Score);
+			}
+			
+			// best case scenario in the 10th frame
+//			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE && roll3 == Roll.STRIKE) {
+//				// taken  care
+//				currentFrame.setScore(previousFrame.getScore() + 30);
+//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE && roll3 != Roll.STRIKE) {
+//				// taken care
+//				currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
+//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.SPARE && roll3 == Roll.STRIKE) {
+//				// can't happen
+//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.SPARE && roll3 != Roll.STRIKE) {
+//				// can't happen
+//			} else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 == Roll.STRIKE) {
+//				// can't happen
+//			} else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 != Roll.STRIKE) {
+//				// can't happen
+//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE && roll3 == Roll.STRIKE) {
+//				// taken care
+//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE && roll3 != Roll.STRIKE) {
+//				// taken care
+//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE && roll3 == Roll.STRIKE) {
+//				// can't happen
+//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE && roll3 != Roll.STRIKE) {
+//			    // can't happen	
+//			} else if (roll1 != Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 == Roll.STRIKE) {
+//				
+//			} else if (roll1 != Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 != Roll.STRIKE) {
+//				
+//			}
+			
+//			else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE  && roll2 != Roll.SPARE) {
+//				currentFrame.setScore(previousFrame.getScore() + 10 + roll2.getScore());
+//			} else if (roll1 != Roll.STRIKE && (roll2 == Roll.STRIKE || roll2 == Roll.SPARE)) {
+//				int roll2Score = roll2.getScore();
+//				// if roll2 is a spare, we can't use 99 but calculate the real value using roll1
+//				if (roll2 ==  Roll.SPARE) {
+//					roll2Score = 10 - roll1.getScore();
+//				}					
+//				currentFrame.setScore(previousFrame.getScore() +  roll1.getScore() + roll2Score + roll3.getScore());
+//			}
+			
+			
+//			if (roll1 == Roll.STRIKE || roll2 == Roll.SPARE) {
+//				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore() + roll3.getScore());
+//			} else {
+//				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore());
+//			}
+	}	
 	
 	private void whenRollOneIsNotStrike(Roll roll1, Frame previousFrame,
 			Frame lastToPreviousFrame,
@@ -200,30 +283,6 @@ public class BowlingLaneImpl implements BowlingLane {
 		}		
 	}
 	
-	private void whenFrameIsTen(Roll roll1, Roll roll2,
-			int currentFrameIndex, 
-			Frame currentFrame,
-			Frame previousFrame) {
-		// 10th is special because of the third potential roll so need extra care.
-		if (currentFrameIndex == 10) {
-			Roll roll3 = currentFrame.getRoll3();
-			// best case scenario in the 10th frame
-			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE && roll3 == Roll.STRIKE) {
-				currentFrame.setScore(previousFrame.getScore() + 30);
-			} else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE) {
-				currentFrame.setScore(previousFrame.getScore() + 10 + roll2.getScore());
-			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE) {
-				int roll2Score = roll2.getScore();
-				// if roll2 is a spare, we can't use 99 but calculate the real value using roll1
-				if (roll2 ==  Roll.SPARE) {
-					roll2Score = 10 - roll1.getScore();
-				}					
-				currentFrame.setScore(previousFrame.getScore() +  roll1.getScore() + roll2Score + roll3.getScore());
-			}
-		}		
-	}
-	
-
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub

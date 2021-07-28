@@ -44,8 +44,16 @@ public class Frame {
 	// Roll3 is special. Only applicable in 10th frame when second roll
 	// is either a strike or a spare.
 	public void setRoll3(Roll roll) {
-		assert frameNumber == FrameNumber.TEN;
-		assert roll2 == Roll.STRIKE || roll2 == Roll.SPARE;
+		if (frameNumber != FrameNumber.TEN) {
+			throw new RuntimeException("Cannot allow roll 3 except on 10th frame. You're on " + frameNumber.getValue());
+		}
+		//assert frameNumber == FrameNumber.TEN;
+		if (!(roll1 == Roll.STRIKE || (roll2  == Roll.STRIKE || roll2 == Roll.SPARE))) {
+			throw new RuntimeException("Can only allow roll 3 on 10th frame when roll 1 is a strike OR "
+					+ "roll2 is a strike/spare. You're on frame: " + frameNumber.getValue() + ", roll 1:" + roll1.getScore()
+					+ ", and roll2:" + roll2.getScore());
+		}
+		//assert roll2 == Roll.STRIKE || roll2 == Roll.SPARE;
 		this.roll3 = roll;
 	}
 	

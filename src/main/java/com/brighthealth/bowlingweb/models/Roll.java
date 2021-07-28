@@ -20,7 +20,30 @@ public enum Roll {
 		this.score = score;
 	}
 	
+//	public static Roll getRoll2(int frameIndex,  int rollInt1, int rollInt2) {
+//		Roll roll2 = null;
+//		if (frameIndex != 10) {
+//			roll2 = (rollInt1 + rollInt2 == 10) ? Roll.getRoll(99) : Roll.getRoll(rollInt2);
+//		} else {
+//			roll2  = Roll.getRoll(rollInt2);
+//		}
+//		return roll2;
+//	}
+	
+//	public static int getRoll2Score(Roll roll1) {
+//		return 10 - roll1.getScore();
+//	}
+//	
+//	public static int getRoll3Score(Roll roll3) {
+//		return roll3.getScore() == 99 ? 10 : roll3.getScore();
+//	}
+	
 	public int getScore() {
+//		if (this == Roll.EMPTY) 
+//			return 0;
+//		if (this == Roll.SPARE) {
+//			return  10 - roll1Score;
+//		}
 		return score;
 	}
 	
