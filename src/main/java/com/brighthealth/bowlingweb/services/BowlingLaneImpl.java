@@ -6,6 +6,9 @@ import com.brighthealth.bowlingweb.models.Player;
 import com.brighthealth.bowlingweb.models.Roll;
 import com.brighthealth.bowlingweb.models.RollTrio;
 
+/*
+ * An implementation of bowling lane interface. 
+ */
 public class BowlingLaneImpl implements BowlingLane {
 	private int totalPlayers = -1;
 	private Player[] players = null;
@@ -236,7 +239,6 @@ public class BowlingLaneImpl implements BowlingLane {
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public Player[] getPlayers() {

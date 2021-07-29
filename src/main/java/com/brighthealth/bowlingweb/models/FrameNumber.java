@@ -1,5 +1,8 @@
 package com.brighthealth.bowlingweb.models;
 
+/*
+ * An enum to represent a frame 
+ */
 public enum FrameNumber {
 	ONE(1),
 	TWO(2),

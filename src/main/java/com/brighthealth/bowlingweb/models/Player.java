@@ -2,6 +2,9 @@ package com.brighthealth.bowlingweb.models;
 
 import java.util.Arrays;
 
+/*
+ * To maintain a player's progress over time within a game.
+ */
 public class Player {
 	private int id;
 	private Frame[] frames;

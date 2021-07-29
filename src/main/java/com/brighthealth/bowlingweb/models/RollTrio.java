@@ -2,6 +2,9 @@ package com.brighthealth.bowlingweb.models;
 
 import java.util.Random;
 
+/*
+ * Wrapper class to hold rolls within a frame
+ */
 public class RollTrio {
 	private int roll1;
 	private int roll2;
