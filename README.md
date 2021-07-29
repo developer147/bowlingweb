@@ -15,8 +15,8 @@ he/she makes in prior rolls.
  
 # Known Issues
 
-Within a frame, when a strike/spare is made, the Score attribute would temporily show up as "0" (please interpret that as undetermined/blank) 
-which will eventually be corrected by the subsequent rolls.   
+Within a frame, when a strike/spare is scored, the Score attribute would temporily show up as "0". 
+Please interpret it as undetermined/blank which will eventually be corrected by the next one/two subsequent rolls.   
 
 # To run tests
-From terminal, run mvn clean install
+From terminal, run ```mvn clean install```
