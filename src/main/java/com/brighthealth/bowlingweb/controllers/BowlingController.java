@@ -33,7 +33,6 @@ public class BowlingController {
 	  /*
 	   * Takes the user input and kick starts the game.
 	   */
-	  @PostMapping("/")
 	  public String playerCountSubmit(@ModelAttribute PlayerCount greeting, Model model) {
 		long laneNumber = bowlingAlleyService.getLane();
 		BowlingLaneImpl bowlingLaneImpl = new BowlingLaneImpl(greeting.getCount(), laneNumber);

@@ -1,4 +1,3 @@
-# Bowling
 This project simulates/mimics a scoring device in a bowling lane. 
 
 # How to run
