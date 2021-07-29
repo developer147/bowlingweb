@@ -118,69 +118,19 @@ public class BowlingLaneImpl implements BowlingLane {
 			int currentFrameIndex, 
 			Frame currentFrame,
 			Frame previousFrame) {
-
-			Roll roll3 = currentFrame.getRoll3();
-			int roll3Score = 0;
-			if (roll3 != null) {
-				roll3Score = roll3.getScore() == 99 ? 10 : roll3.getScore();
-			}
-			
-			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE) {
-				currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
-			//} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE) {
-			//	currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + 10 + roll3Score);
-			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE) {
-				currentFrame.setScore(previousFrame.getScore() + 10 + roll3Score);
-			} else {
-				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore() + roll3Score);
-			}
-			
-			// best case scenario in the 10th frame
-//			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE && roll3 == Roll.STRIKE) {
-//				// taken  care
-//				currentFrame.setScore(previousFrame.getScore() + 30);
-//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE && roll3 != Roll.STRIKE) {
-//				// taken care
-//				currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
-//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.SPARE && roll3 == Roll.STRIKE) {
-//				// can't happen
-//			} else if (roll1 == Roll.STRIKE && roll2 == Roll.SPARE && roll3 != Roll.STRIKE) {
-//				// can't happen
-//			} else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 == Roll.STRIKE) {
-//				// can't happen
-//			} else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 != Roll.STRIKE) {
-//				// can't happen
-//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE && roll3 == Roll.STRIKE) {
-//				// taken care
-//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE && roll3 != Roll.STRIKE) {
-//				// taken care
-//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE && roll3 == Roll.STRIKE) {
-//				// can't happen
-//			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE && roll3 != Roll.STRIKE) {
-//			    // can't happen	
-//			} else if (roll1 != Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 == Roll.STRIKE) {
-//				
-//			} else if (roll1 != Roll.STRIKE && roll2 != Roll.STRIKE && roll2 != Roll.SPARE && roll3 != Roll.STRIKE) {
-//				
-//			}
-			
-//			else if (roll1 == Roll.STRIKE && roll2 != Roll.STRIKE  && roll2 != Roll.SPARE) {
-//				currentFrame.setScore(previousFrame.getScore() + 10 + roll2.getScore());
-//			} else if (roll1 != Roll.STRIKE && (roll2 == Roll.STRIKE || roll2 == Roll.SPARE)) {
-//				int roll2Score = roll2.getScore();
-//				// if roll2 is a spare, we can't use 99 but calculate the real value using roll1
-//				if (roll2 ==  Roll.SPARE) {
-//					roll2Score = 10 - roll1.getScore();
-//				}					
-//				currentFrame.setScore(previousFrame.getScore() +  roll1.getScore() + roll2Score + roll3.getScore());
-//			}
-			
-			
-//			if (roll1 == Roll.STRIKE || roll2 == Roll.SPARE) {
-//				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore() + roll3.getScore());
-//			} else {
-//				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore());
-//			}
+		Roll roll3 = currentFrame.getRoll3();
+		int roll3Score = 0;
+		if (roll3 != null) {
+			roll3Score = roll3.getScore() == 99 ? 10 : roll3.getScore();
+		}
+		
+		if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE) {
+			currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
+		} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE) {
+			currentFrame.setScore(previousFrame.getScore() + 10 + roll3Score);
+		} else {
+			currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + roll2.getScore() + roll3Score);
+		}
 	}	
 	
 	private void whenRollOneIsNotStrike(Roll roll1, Frame previousFrame,
@@ -284,12 +234,6 @@ public class BowlingLaneImpl implements BowlingLane {
 	}
 	
 	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
 		
@@ -311,10 +255,4 @@ public class BowlingLaneImpl implements BowlingLane {
 		}
 		return players;
 	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}	
 }

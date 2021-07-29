@@ -5,9 +5,5 @@ import com.brighthealth.bowlingweb.models.Player;
 public interface BowlingLane {
 	void start(Player[] players);
 	
-	void stop();
-	
-	void pause();
-	
 	void reset();
 }
