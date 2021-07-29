@@ -1,5 +1,8 @@
 This project simulates/mimics a scoring device in a bowling lane. 
 
+# Prerequisites
+Java 8 & Maven 3.x.x
+
 # How to run
 From terminal, run ```mvn spring-boot:run```
 
