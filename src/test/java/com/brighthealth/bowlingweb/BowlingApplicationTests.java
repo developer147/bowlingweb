@@ -326,5 +326,57 @@ class BowlingApplicationTests {
 		assertEquals(84, player1.getFrames()[9].getScore());
 	}	
 	
+	@Test
+	void testRandomExampleFromInternet() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(7, 0, -1);
+		bowlingLaneImpl.nextPlay(5, 3, -1);
+		bowlingLaneImpl.nextPlay(9, 99, -1);
+		bowlingLaneImpl.nextPlay(9, 99, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(5, 1, -1);
+		bowlingLaneImpl.nextPlay(3, 99, -1);
+		bowlingLaneImpl.nextPlay(9, 0, -1);
+		assertEquals(8, player1.getFrames()[0].getScore());
+		assertEquals(15, player1.getFrames()[1].getScore());
+		assertEquals(23, player1.getFrames()[2].getScore());
+		assertEquals(42, player1.getFrames()[3].getScore());
+		assertEquals(62, player1.getFrames()[4].getScore());
+		assertEquals(80, player1.getFrames()[5].getScore());
+		assertEquals(88, player1.getFrames()[6].getScore());
+		assertEquals(94, player1.getFrames()[7].getScore());
+		assertEquals(113, player1.getFrames()[8].getScore());
+		assertEquals(122, player1.getFrames()[9].getScore());		
+	}
+	
+	@Test
+	void testRandomExampleFromInternet2() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(8, 99, -1);
+		bowlingLaneImpl.nextPlay(9, 0, -1);
+		bowlingLaneImpl.nextPlay(4, 4, -1);
+		bowlingLaneImpl.nextPlay(7, 2, -1);
+		bowlingLaneImpl.nextPlay(9, 99, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(9, 99, 7);
+		assertEquals(19, player1.getFrames()[0].getScore());
+		assertEquals(28, player1.getFrames()[1].getScore());
+		assertEquals(36, player1.getFrames()[2].getScore());
+		assertEquals(45, player1.getFrames()[3].getScore());
+		assertEquals(65, player1.getFrames()[4].getScore());
+		assertEquals(93, player1.getFrames()[5].getScore());
+		assertEquals(111, player1.getFrames()[6].getScore());
+		assertEquals(119, player1.getFrames()[7].getScore());
+		assertEquals(127, player1.getFrames()[8].getScore());
+		assertEquals(144, player1.getFrames()[9].getScore());		
+	}
+	
 	
 }
