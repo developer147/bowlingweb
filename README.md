@@ -2,7 +2,7 @@
 This project simulates/mimics a scoring device in a bowling lane. 
 
 # How to run
-From terminal, run mvn spring-boot:run
+From terminal, run ```mvn spring-boot:run```
 
 On a web browser, go to http://localhost:8080. The rest should be self explanatory. 
 
@@ -15,8 +15,8 @@ he/she makes in prior rolls.
  
 # Known Issues
 
-Within a frame, when a strike/spare is made, the Score attribute would temporily show up as "0" (please interpret that undetermined/blank) 
-which will eventually be corrected.   
+Within a frame, when a strike/spare is made, the Score attribute would temporily show up as "0" (please interpret that as undetermined/blank) 
+which will eventually be corrected by the subsequent rolls.   
 
 # To run tests
 From terminal, run mvn clean install
