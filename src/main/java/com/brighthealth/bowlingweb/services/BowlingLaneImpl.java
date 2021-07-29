@@ -127,8 +127,8 @@ public class BowlingLaneImpl implements BowlingLane {
 			
 			if (roll1 == Roll.STRIKE && roll2 == Roll.STRIKE) {
 				currentFrame.setScore(previousFrame.getScore() + 20 + roll3Score);
-			} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE) {
-				currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + 10 + roll3Score);
+			//} else if (roll1 != Roll.STRIKE && roll2 == Roll.STRIKE) {
+			//	currentFrame.setScore(previousFrame.getScore() + roll1.getScore() + 10 + roll3Score);
 			} else if (roll1 != Roll.STRIKE && roll2 == Roll.SPARE) {
 				currentFrame.setScore(previousFrame.getScore() + 10 + roll3Score);
 			} else {

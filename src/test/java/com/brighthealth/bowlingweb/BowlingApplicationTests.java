@@ -39,6 +39,58 @@ class BowlingApplicationTests {
 	}
 	
 	@Test
+	void testBetterPlayer() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(5, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(8, 1, -1);
+		bowlingLaneImpl.nextPlay(7, 1, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(9, 99, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(10, 1, 6);
+		assertEquals(8, player1.getFrames()[0].getScore());
+		assertEquals(21, player1.getFrames()[1].getScore());
+		assertEquals(29, player1.getFrames()[2].getScore());
+		assertEquals(38, player1.getFrames()[3].getScore());
+		assertEquals(46, player1.getFrames()[4].getScore());
+		assertEquals(66, player1.getFrames()[5].getScore());
+		assertEquals(86, player1.getFrames()[6].getScore());
+		assertEquals(116, player1.getFrames()[7].getScore());
+		assertEquals(137, player1.getFrames()[8].getScore());
+		assertEquals(154, player1.getFrames()[9].getScore());
+	}
+	
+	@Test
+	void testAnotherBetterPlayer() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(5, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(8, 1, -1);
+		bowlingLaneImpl.nextPlay(7, 1, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(9, 99, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(10, -1, -1);
+		bowlingLaneImpl.nextPlay(10, 10, 6);
+		assertEquals(8, player1.getFrames()[0].getScore());
+		assertEquals(21, player1.getFrames()[1].getScore());
+		assertEquals(29, player1.getFrames()[2].getScore());
+		assertEquals(38, player1.getFrames()[3].getScore());
+		assertEquals(46, player1.getFrames()[4].getScore());
+		assertEquals(66, player1.getFrames()[5].getScore());
+		assertEquals(86, player1.getFrames()[6].getScore());
+		assertEquals(116, player1.getFrames()[7].getScore());
+		assertEquals(146, player1.getFrames()[8].getScore());
+		assertEquals(172, player1.getFrames()[9].getScore());
+	}	
+	
+	@Test
 	// my own case
 	void testAnotherAveragePlayer() {
 		Player player1 = new Player(0);
@@ -167,6 +219,111 @@ class BowlingApplicationTests {
 		assertEquals(63, player1.getFrames()[7].getScore());
 		assertEquals(66, player1.getFrames()[8].getScore());
 		assertEquals(82, player1.getFrames()[9].getScore());
+	}	
+	
+	
+	@Test
+	void testWhenLastFrameAllThreeRollsAreStrikes() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(1, 4, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(1, 5, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(6, 2, -1);
+		bowlingLaneImpl.nextPlay(3, 1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 0, -1);
+		bowlingLaneImpl.nextPlay(10, 10, 10);
+		assertEquals(5, player1.getFrames()[0].getScore());
+		assertEquals(16, player1.getFrames()[1].getScore());
+		assertEquals(22, player1.getFrames()[2].getScore());
+		assertEquals(30, player1.getFrames()[3].getScore());
+		assertEquals(38, player1.getFrames()[4].getScore());
+		assertEquals(42, player1.getFrames()[5].getScore());
+		assertEquals(50, player1.getFrames()[6].getScore());
+		assertEquals(63, player1.getFrames()[7].getScore());
+		assertEquals(66, player1.getFrames()[8].getScore());
+		assertEquals(96, player1.getFrames()[9].getScore());
+	}
+	
+	@Test
+	void testWhenLastFrameFirstTwoRollsAreStrikesButNotThird() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(1, 4, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(1, 5, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(6, 2, -1);
+		bowlingLaneImpl.nextPlay(3, 1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 0, -1);
+		bowlingLaneImpl.nextPlay(10, 10, 4);
+		assertEquals(5, player1.getFrames()[0].getScore());
+		assertEquals(16, player1.getFrames()[1].getScore());
+		assertEquals(22, player1.getFrames()[2].getScore());
+		assertEquals(30, player1.getFrames()[3].getScore());
+		assertEquals(38, player1.getFrames()[4].getScore());
+		assertEquals(42, player1.getFrames()[5].getScore());
+		assertEquals(50, player1.getFrames()[6].getScore());
+		assertEquals(63, player1.getFrames()[7].getScore());
+		assertEquals(66, player1.getFrames()[8].getScore());
+		assertEquals(90, player1.getFrames()[9].getScore());
+	}
+	
+	@Test
+	void testWhenLastFrameSecondRollIsSpareAndThirdIsStrike() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(1, 4, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(1, 5, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(6, 2, -1);
+		bowlingLaneImpl.nextPlay(3, 1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 0, -1);
+		bowlingLaneImpl.nextPlay(1, 99, 10);
+		assertEquals(5, player1.getFrames()[0].getScore());
+		assertEquals(16, player1.getFrames()[1].getScore());
+		assertEquals(22, player1.getFrames()[2].getScore());
+		assertEquals(30, player1.getFrames()[3].getScore());
+		assertEquals(38, player1.getFrames()[4].getScore());
+		assertEquals(42, player1.getFrames()[5].getScore());
+		assertEquals(50, player1.getFrames()[6].getScore());
+		assertEquals(63, player1.getFrames()[7].getScore());
+		assertEquals(66, player1.getFrames()[8].getScore());
+		assertEquals(86, player1.getFrames()[9].getScore());
+	}
+	
+	@Test
+	void testWhenLastFrameSecondRollIsSpareAndThirdIsNotStrike() {
+		Player player1 = new Player(0);
+		BowlingLaneImpl bowlingLaneImpl =  new BowlingLaneImpl(1,1, Arrays.array(player1));
+		bowlingLaneImpl.nextPlay(1, 4, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(1, 5, -1);
+		bowlingLaneImpl.nextPlay(3, 5, -1);
+		bowlingLaneImpl.nextPlay(6, 2, -1);
+		bowlingLaneImpl.nextPlay(3, 1, -1);
+		bowlingLaneImpl.nextPlay(8, 0, -1);
+		bowlingLaneImpl.nextPlay(4, 99, -1);
+		bowlingLaneImpl.nextPlay(3, 0, -1);
+		bowlingLaneImpl.nextPlay(1, 99, 8);
+		assertEquals(5, player1.getFrames()[0].getScore());
+		assertEquals(16, player1.getFrames()[1].getScore());
+		assertEquals(22, player1.getFrames()[2].getScore());
+		assertEquals(30, player1.getFrames()[3].getScore());
+		assertEquals(38, player1.getFrames()[4].getScore());
+		assertEquals(42, player1.getFrames()[5].getScore());
+		assertEquals(50, player1.getFrames()[6].getScore());
+		assertEquals(63, player1.getFrames()[7].getScore());
+		assertEquals(66, player1.getFrames()[8].getScore());
+		assertEquals(84, player1.getFrames()[9].getScore());
 	}	
 	
 	
