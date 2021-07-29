@@ -11,20 +11,12 @@ public class Player {
 		frames = new Frame[10];
 	}
 	
-	public void setId(int playerId) {
-		this.id = playerId;
-	}
-	
 	public int getId() {
 		return id;
 	}
 	
 	public Frame[] getFrames() {
 		return frames;
-	}
-	
-	public void setFrames(Frame[] frames) {
-		this.frames = frames;
 	}
 	
 	public void setFrame(FrameNumber frameNumber, Frame frame) {

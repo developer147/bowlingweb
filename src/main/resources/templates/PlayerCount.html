@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Welcome to BrightHealth Bowling Alley!</h1>
+    <form action="#" th:action="@{/}" th:object="${PlayerCount}" method="post">
+    	<!-- <p>How many of you want to play? <input type="text" th:field="*{count}" /></p> -->
+        
+		<label for="quantity">How many of you want to play? (between 1 and 6 inclusive):</label>
+		<input type="number" id="quantity" name="quantity" min="1" max="6" th:field="*{count}">
+		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>        
+    </form>
+</body>
+</html>
