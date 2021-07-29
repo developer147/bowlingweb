@@ -1,4 +1,4 @@
-# bowlingweb
+# Bowling
 This project simulates/mimics a scoring device in a bowling lane. 
 
 # How to run
@@ -12,7 +12,6 @@ Clicking on "Next Play" hyperlink, randomly generates an acceptable number in th
 In the real game, a player may roll the ball once/twice/thrice depending on the frame and the scores that 
 he/she makes in prior rolls.
 
- 
 # Known Issues
 
 Within a frame, when a strike/spare is scored, the Score attribute would temporily show up as "0". 

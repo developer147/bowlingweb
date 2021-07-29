@@ -4,8 +4,11 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Configuration;
 
+/*
+ * To keep track of lanes within an alley.
+ */
 @Configuration
-public class BowlingAlleyService {
+public class BowlingAlley {
 	private static long laneNumber = 0;
 	private Map<Long, BowlingLaneImpl> currentLanes = new HashMap<>();
 	

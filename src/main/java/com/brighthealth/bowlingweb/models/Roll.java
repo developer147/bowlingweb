@@ -1,7 +1,11 @@
 package com.brighthealth.bowlingweb.models;
 
+
+/*
+ * enum to represent possible values when a ball is rolled.
+ */
 public enum Roll {
-	EMPTY(-1),
+	EMPTY(-1), /* to represent when a roll does not take place. eg. when there is a strike, the second roll would be skipped*/
 	MISS(0),
 	ONE(1),
 	TWO(2),
@@ -13,7 +17,7 @@ public enum Roll {
 	EIGHT(8),
 	NINE(9),
 	STRIKE(10),
-	SPARE(99);
+	SPARE(99); /*99 is an arbitrary number to uniquely identify a spare*/
 	
 	private final int score;
 	private Roll(int score) {
